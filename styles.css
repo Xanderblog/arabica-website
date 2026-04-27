@@ -2166,12 +2166,60 @@ body {
   .partner-name-en  { white-space: normal; }
 }
 /* ── Section load divider (+ button between sections) ── */
+/* ─────────────────────────────────────────
+   SECTION LOAD DIVIDER
+───────────────────────────────────────── */
 .section-load-divider {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 32px 0;
-  background: #f4f4f4;
-  border-top: 1px solid #e0e0e0;
-  border-bottom: 1px solid #e0e0e0;
+  width: 100%;
+  padding: 8px 0;
+}
+
+.section-load-divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  border-top: 1.5px dashed #b0b8c8;
+  transform: translateY(-50%);
+}
+
+.btn-load-more {
+  position: relative;
+  z-index: 1;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid #c8d0dc;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #555e6e;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+  padding: 0;
+}
+
+.btn-load-more:hover {
+  border-color: #17355D;
+  color: #17355D;
+  background: #f4f6f9;
+  transform: scale(1.08);
+}
+
+.btn-load-more:active { transform: scale(0.95); }
+
+.btn-load-more svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
 }

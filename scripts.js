@@ -189,29 +189,63 @@
   console.log('[Arabica] scripts.js initialized ✓');
 
   /* ═══════════════════════════════════════
-     PICKED FOR YOU — load more
+     PICKED FOR YOU — toggle more/less
   ═══════════════════════════════════════ */
   const btnLoadMore   = document.getElementById('btnLoadMore');
   const hiddenItems   = document.querySelectorAll('.picked-item--hidden');
-  let   loadedCount   = 0;
-  const batchSize     = 2;
+  const dividerWrap   = document.querySelector('.section-load-divider');
+  let   expanded      = false;
 
-  if (btnLoadMore) {
+  // SVG icons
+  const iconPlus  = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`;
+  const iconMinus = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>`;
+
+  if (btnLoadMore && hiddenItems.length > 0) {
     btnLoadMore.addEventListener('click', function () {
-      let shown = 0;
-      for (let i = loadedCount; i < hiddenItems.length && shown < batchSize; i++) {
-        hiddenItems[i].classList.add('visible');
-        // Insert divider before newly shown item
-        const divider = document.createElement('div');
-        divider.className = 'picked-divider';
-        divider.setAttribute('aria-hidden', 'true');
-        hiddenItems[i].parentNode.insertBefore(divider, hiddenItems[i]);
-        loadedCount++;
-        shown++;
-      }
-      if (loadedCount >= hiddenItems.length) {
-        btnLoadMore.classList.add('all-loaded');
-        btnLoadMore.setAttribute('aria-disabled', 'true');
+
+      if (!expanded) {
+        // ── EXPAND: show hidden items ──
+        hiddenItems.forEach(function (item, i) {
+          // Insert divider before each newly shown item
+          const divider = document.createElement('div');
+          divider.className = 'picked-divider picked-divider--added';
+          divider.setAttribute('aria-hidden', 'true');
+          item.parentNode.insertBefore(divider, item);
+
+          // Show item with staggered animation
+          item.classList.add('visible');
+          item.style.animationDelay = (i * 0.08) + 's';
+        });
+
+        // Switch to minus
+        btnLoadMore.innerHTML = iconMinus;
+        btnLoadMore.setAttribute('aria-label', 'إخفاء المقالات الإضافية');
+        btnLoadMore.classList.add('is-expanded');
+        expanded = true;
+
+      } else {
+        // ── COLLAPSE: hide items again ──
+        hiddenItems.forEach(function (item) {
+          item.classList.remove('visible');
+          item.style.animationDelay = '';
+        });
+
+        // Remove the injected dividers
+        document.querySelectorAll('.picked-divider--added').forEach(function (d) {
+          d.remove();
+        });
+
+        // Switch back to plus
+        btnLoadMore.innerHTML = iconPlus;
+        btnLoadMore.setAttribute('aria-label', 'تحميل المزيد من المقالات');
+        btnLoadMore.classList.remove('is-expanded');
+        expanded = false;
+
+        // Scroll back up to the picked section smoothly
+        const pickedSection = document.querySelector('.picked-section');
+        if (pickedSection) {
+          pickedSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
     });
   }

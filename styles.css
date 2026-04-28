@@ -2052,7 +2052,7 @@ body {
 .footer-panel-left {
   flex: 0 0 32%;
   background-color: #17355D;
-  background-image: url('asset/images/footer/Vedctor.png');
+  background-image: url('asset/images/footer/Vector.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 90% auto;
@@ -2123,13 +2123,13 @@ body {
 ───────────────────────────────────────── */
 @media (max-width: 900px) {
   .footer-panels {
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
 
   .footer-panel-right {
     flex: 1 1 auto;
     border-left: none;
-    border-top: 1px solid var(--footer-separator);
+    border-bottom: 1px solid var(--footer-separator);
     padding: 36px 32px 32px;
   }
 
@@ -2201,7 +2201,6 @@ body {
     grid-template-columns: 1fr;
   }
 }
-
 /* Right top logo area */
 .panel-right-top{
     display: flex;

@@ -2201,6 +2201,32 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* Right top logo area */
+.panel-right-top{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px;
+    direction: rtl; /* puts logo on right, text on left */
+}
+
+/* Logo image */
+.logo-arabica{
+    width: 58px;
+    height: auto;
+    display: block;
+    flex-shrink: 0;
+}
+
+/* Text beside logo */
+.logofooter-name{
+    color: #66CCFF;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.2;
+    display: inline-block;
+}
 /* ── Section load divider (+ button between sections) ── */
 /* ─────────────────────────────────────────
    SECTION LOAD DIVIDER

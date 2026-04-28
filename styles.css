@@ -1899,271 +1899,307 @@ body {
   .latest-img-wrap { width: 70px; height: 54px; }
   .latest-title    { font-size: 14px; -webkit-line-clamp: 1; }
 }
-/* =========================================
-   FOOTER
-   ========================================= */
-.site-footer {
-  background: #1b2d4f;
-  direction: rtl;
-  width: 100%;
+/* ─────────────────────────────────────────
+   FOOTER — CSS VARIABLES
+───────────────────────────────────────── */
+:root {
+  --font:               'Cairo', sans-serif;
+
+  /* Main right panel background */
+  --footer-bg-right:    #17355D;
+
+  /* Left panel — linear gradient bottom-right corner */
+  --footer-bg-left-from: #15355D;
+  --footer-bg-left-to:   #3A9EDE;
+
+  --footer-text:        #ffffff;
+  --footer-link:        #ffffff;
+  --footer-link-hover:  #7ecbf0;
+  --footer-divider:     rgba(255,255,255,0.18);
+  --footer-gold:        #CC9933;
+  --footer-gold-hover:  #e0b84a;
+  --footer-copy-muted:  rgba(255,255,255,0.70);
+
+  /* Vertical separator between panels */
+  --footer-separator:   rgba(58, 158, 222, 0.45);
+
+  --t-fast: 0.15s ease;
 }
 
-.footer-inner {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 var(--header-pad, 32px);
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: #0f2547;
 }
 
 /* ─────────────────────────────────────────
-   TOP ROW — branding on right, partner on left
+   FOOTER SHELL
 ───────────────────────────────────────── */
-.footer-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 40px 0 36px;
+.site-footer {
+  position: relative;
+  overflow: hidden;
+  direction: rtl;
+  font-family: var(--font);
+  color: var(--footer-text);
+  width: 100%;
 }
 
-/* ── Arabica brand (right) ── */
-.footer-brand {}
+/* Texture overlay — handled per-panel */
+.footer-texture { display: none; }
 
-.footer-logo {
+/* ─────────────────────────────────────────
+   TWO-PANEL LAYOUT
+───────────────────────────────────────── */
+.footer-panels {
+  position: relative;
+  z-index: 1;
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: row;
+  width: 100%;
+  min-height: 280px;
+}
+
+/* ─────────────────────────────────────────
+   RIGHT PANEL — main content (~68% width)
+───────────────────────────────────────── */
+.footer-panel-right {
+  flex: 1 1 68%;
+  background-color: #17355D;
+  background-image:
+    radial-gradient(
+      ellipse 45% 55% at 3% 3%,
+      rgba(48, 111, 195, 0.45) 0%,
+      rgba(23, 53, 93, 0) 65%
+    ),
+    url('asset/images/footer/Vector.png');
+  background-repeat: no-repeat, no-repeat;
+  background-position: top left, center center;
+  background-size: 100% 100%, 75% auto;
+  padding: 44px 56px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-left: 1px solid var(--footer-separator);
+}
+
+/* Arabica logo row */
+.panel-right-top {
+  display: flex;
+  justify-content: flex-start;   /* RTL: flex-start = visual RIGHT */
+  margin-bottom: 28px;
+}
+
+.logo-arabica {
+  height: 60px;
+  width: auto;
+  max-width: 320px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Thin horizontal divider */
+.panel-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--footer-divider);
+  margin-bottom: 32px;
+}
+
+/* 3-column nav grid */
+.footer-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.footer-nav {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: right;
+}
+
+.footer-nav li a {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--footer-link);
   text-decoration: none;
+  transition: color var(--t-fast);
+  display: inline-block;
 }
 
-.footer-logo-icon {
-  width: 48px;
-  height: 48px;
-  flex-shrink: 0;
+.footer-nav li a:hover {
+  color: var(--footer-link-hover);
+}
+
+/* Gold CTA link */
+.footer-nav li a.link-gold {
+  color: var(--footer-gold);
+  font-weight: 600;
+}
+
+.footer-nav li a.link-gold:hover {
+  color: var(--footer-gold-hover);
+}
+
+/* ─────────────────────────────────────────
+   LEFT PANEL — partner logo + copyright (~32% width)
+   Linear gradient: #15355D → #3A9EDE (diagonal)
+───────────────────────────────────────── */
+.footer-panel-left {
+  flex: 0 0 32%;
+  background-color: #17355D;
+  background-image: url('asset/images/footer/Vedctor.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 90% auto;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 44px 36px 40px;
+  border-left: none;
 }
 
-.footer-logo-icon svg {
-  width: 100%;
-  height: 100%;
-}
-
-.footer-logo-name {
-  font-family: var(--font, 'Cairo', sans-serif);
-  font-size: 22px;
-  font-weight: 700;
-  color: #ffffff;
-  white-space: nowrap;
-  letter-spacing: -0.01em;
-}
-
-/* ── Partner logo (left) ── */
-.footer-partner {}
-
-.footer-partner-logo {
+.panel-left-inner {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 14px;
-  direction: rtl;
-}
-
-.partner-icon {
-  width: 52px;
-  height: 52px;
-  flex-shrink: 0;
-}
-
-.partner-icon svg {
-  width: 100%;
-  height: 100%;
-}
-
-.partner-text {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  text-align: right;
-}
-
-.partner-name-ar {
-  font-family: var(--font, 'Cairo', sans-serif);
-  font-size: 13px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.9);
-  line-height: 1.4;
-  white-space: nowrap;
-}
-
-.partner-name-en {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  font-size: 11px;
-  font-weight: 400;
-  color: rgba(255,255,255,0.5);
-  white-space: nowrap;
-  direction: ltr;
-  text-align: left;
-}
-
-/* ─────────────────────────────────────────
-   DIVIDER
-───────────────────────────────────────── */
-.footer-divider {
-  height: 1px;
-  background: rgba(255,255,255,0.1);
+  justify-content: center;
+  gap: 32px;
+  text-align: center;
   width: 100%;
 }
 
-/* ─────────────────────────────────────────
-   BOTTOM ROW — nav right, copyright left
-───────────────────────────────────────── */
-.footer-bottom {
+/* Arab Center logo */
+.panel-left-logo {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 36px 0 44px;
-  gap: 40px;
+  justify-content: center;
 }
 
-/* ── Nav links (right side) ── */
-.footer-nav {
-  display: flex;
-  gap: 60px;
-  direction: rtl;
+.logo-partner {
+  height: 72px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  max-width: 220px;
 }
 
-.footer-nav-col {
+/* Copyright block */
+.panel-left-copy {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-}
-
-.footer-link {
-  font-family: var(--font, 'Cairo', sans-serif);
-  font-size: 14px;
-  font-weight: 400;
-  color: rgba(255,255,255,0.8);
-  text-decoration: none;
-  white-space: nowrap;
-  transition: color 0.16s ease;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.footer-link:hover {
-  color: #ffffff;
-}
-
-.footer-link--gold {
-  color: #c8a96e;
-  font-weight: 600;
-}
-
-.footer-link--gold:hover {
-  color: #e0c088;
-}
-
-/* ── Copyright (left side) ── */
-.footer-copy {
-  display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 8px;
-  text-align: left;
-  direction: ltr;
-  flex-shrink: 0;
-  max-width: 280px;
 }
 
-.footer-copy-text {
-  font-family: var(--font, 'Cairo', sans-serif);
+.footer-copy {
   font-size: 13px;
   font-weight: 400;
-  color: rgba(255,255,255,0.65);
-  line-height: 1.7;
+  color: var(--footer-copy-muted);
+  line-height: 1.8;
+  text-align: center;
   direction: rtl;
-  text-align: right;
 }
 
-.footer-copy-link {
-  font-family: 'Segoe UI', Arial, sans-serif;
+.footer-url {
   font-size: 13px;
-  font-weight: 400;
-  color: #c8a96e;
+  font-weight: 500;
+  color: var(--footer-gold);
   text-decoration: none;
   direction: ltr;
-  text-align: left;
-  transition: color 0.16s ease;
+  transition: color var(--t-fast);
 }
 
-.footer-copy-link:hover {
-  color: #e0c088;
+.footer-url:hover {
+  color: var(--footer-gold-hover);
   text-decoration: underline;
 }
 
-/* ═══════════════════════════════════════════
-   FOOTER — RESPONSIVE
-═══════════════════════════════════════════ */
-
-/* Tablet */
-@media (max-width: 1023px) {
-  .footer-inner       { padding: 0 20px; }
-  .footer-logo-name   { font-size: 18px; }
-  .footer-nav         { gap: 36px; }
-  .footer-link        { font-size: 13px; }
-  .partner-name-ar    { font-size: 12px; }
-  .partner-name-en    { font-size: 10.5px; }
-}
-
-/* Mobile — stack everything */
-@media (max-width: 767px) {
-  .footer-inner { padding: 0 16px; }
-
-  /* Top: stack brand above partner */
-  .footer-top {
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 28px;
-    padding: 32px 0 28px;
+/* ─────────────────────────────────────────
+   RESPONSIVE — TABLET (≤ 900px)
+───────────────────────────────────────── */
+@media (max-width: 900px) {
+  .footer-panels {
+    flex-direction: column-reverse;
   }
 
-  .footer-logo-name { font-size: 17px; }
-
-  .footer-partner-logo { justify-content: flex-end; }
-
-  /* Bottom: stack nav above copyright */
-  .footer-bottom {
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 32px;
-    padding: 28px 0 40px;
+  .footer-panel-right {
+    flex: 1 1 auto;
+    border-left: none;
+    border-top: 1px solid var(--footer-separator);
+    padding: 36px 32px 32px;
   }
 
-  .footer-nav   { gap: 28px; }
-  .footer-link  { font-size: 13px; }
+  .footer-panel-left {
+    flex: 0 0 auto;
+    padding: 36px 32px;
+  }
+
+  .panel-left-inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    text-align: right;
+  }
+
+  .panel-left-copy {
+    align-items: flex-end;
+  }
 
   .footer-copy {
     text-align: right;
-    direction: rtl;
-    max-width: 100%;
-    align-items: flex-end;
-  }
-
-  .footer-copy-link {
-    text-align: right;
-    direction: rtl;
   }
 }
 
-/* Mobile S */
-@media (max-width: 479px) {
-  .footer-nav {
-    gap: 20px;
-    flex-wrap: wrap;
+/* ─────────────────────────────────────────
+   RESPONSIVE — MOBILE (≤ 600px)
+───────────────────────────────────────── */
+@media (max-width: 600px) {
+  .footer-panel-right {
+    padding: 28px 20px 28px;
   }
 
-  .footer-nav-col { gap: 12px; }
-  .footer-logo-name { font-size: 15px; }
-  .footer-logo-icon { width: 40px; height: 40px; }
-  .partner-name-ar  { white-space: normal; font-size: 11.5px; }
-  .partner-name-en  { white-space: normal; }
+  .footer-panel-left {
+    padding: 28px 20px;
+  }
+
+  .logo-arabica { height: 40px; }
+  .logo-partner { height: 56px; }
+
+  .footer-nav-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 16px;
+  }
+
+  .footer-nav li a {
+    font-size: 14px;
+  }
+
+  .panel-left-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .panel-left-copy {
+    align-items: center;
+  }
+
+  .footer-copy {
+    text-align: center;
+  }
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE — SMALL MOBILE (≤ 400px)
+───────────────────────────────────────── */
+@media (max-width: 400px) {
+  .footer-nav-grid {
+    grid-template-columns: 1fr;
+  }
 }
 /* ── Section load divider (+ button between sections) ── */
 /* ─────────────────────────────────────────
